@@ -69,6 +69,17 @@ function createTray() {
   tray = new Tray(join(__dirname, '../../resources/icon.png'))
 
   const contextMenu = Menu.buildFromTemplate([
+     {
+      label: '重启',
+      click: () => {
+        // 关闭所有窗口
+        BrowserWindow.getAllWindows().forEach(win => win.close())
+
+        // 重新创建水印窗口
+        const displays = screen.getAllDisplays()
+        displays.forEach(display => createWatermarkWindow(display))
+      }
+    },
     {
       label: '退出水印',
       click: () => {
