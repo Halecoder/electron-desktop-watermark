@@ -3,7 +3,7 @@ name: Build
 on:
   push:
     branches:
-      - main
+      - master
   create:  # 添加这一行以支持标签创建触发
   workflow_dispatch: # 手动触发
 
