@@ -1,4 +1,4 @@
-import { app, BrowserWindow, screen } from 'electron'
+import { app, BrowserWindow, screen, Tray, Menu } from 'electron'
 import { join } from 'path'
 import { electronApp, optimizer, is } from '@electron-toolkit/utils'
 
@@ -25,6 +25,8 @@ import { electronApp, optimizer, is } from '@electron-toolkit/utils'
 //     mainWindow.loadFile(join(__dirname, '../renderer/index.html'))
 //   }
 // }
+
+let tray: Tray | null = null
 
 function createWatermarkWindow(display) {
     const { bounds, scaleFactor } = display
@@ -63,6 +65,22 @@ function createWatermarkWindow(display) {
   }
 }
 
+function createTray() {
+  tray = new Tray(join(__dirname, '../../resources/icon.png'))
+
+  const contextMenu = Menu.buildFromTemplate([
+    {
+      label: '退出水印',
+      click: () => {
+        app.quit()
+      }
+    }
+  ])
+
+  tray.setToolTip('桌面水印运行中')
+  tray.setContextMenu(contextMenu)
+}
+
 app.whenReady().then(() => {
   electronApp.setAppUserModelId('com.electron')
 
@@ -74,6 +92,9 @@ app.whenReady().then(() => {
   // createWindow()
 
   app.whenReady().then(() => {
+  // ✅ 创建托盘
+  createTray()
+
   const displays = screen.getAllDisplays()
 
   // ✅ 为每个屏幕创建一个水印窗口

@@ -12,6 +12,7 @@
 
 <script setup lang="ts">
 import { computed } from 'vue'
+import type { CSSProperties } from 'vue'
 
 declare global {
   interface Window { watermarkConfig: any }
@@ -31,7 +32,7 @@ const fullContent = computed(() => {
   return `${config.content} ${fmtFn(d)}`
 })
 
-const containerStyle = computed(() => ({
+const containerStyle = computed<CSSProperties>(() => ({
   position: 'fixed',
   zIndex: '999999',
   width: '100vw',
@@ -42,7 +43,8 @@ const containerStyle = computed(() => ({
   pointerEvents: 'none'
 }))
 
-function getWatermarkStyle(item: { left: number; top: number; key: string }) {
+
+function getWatermarkStyle(item: { left: number; top: number; key: string }): CSSProperties {
   return {
     position: 'absolute',
     left: item.left + 'px',
