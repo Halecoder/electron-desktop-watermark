@@ -51,8 +51,9 @@ function getWatermarkStyle(item: { left: number; top: number; key: string }): CS
     top: item.top + 'px',
     color: `rgba(0,0,0,${config.opacity})`,
     fontSize: `${config.size}px`,
+    fontWeight: config.bold ? 'bold' : 'normal',
     fontFamily: config.font,
-    transform: `rotate(${config.angle}deg)`,
+    transform: `rotate(${config.angle}deg) scaleX(${config.scaleX}) scaleY(${config.scaleY})`,
     userSelect: 'none',
     whiteSpace: 'nowrap',
     pointerEvents: 'none'
